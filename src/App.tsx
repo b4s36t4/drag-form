@@ -1,24 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import SidePanel from "./container/SidePanel";
+import ControlPanel from "./container/ControlPanel";
+import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import { useState } from "react";
+import { useComponentContext } from "./context/componentContext";
+import PropertyPanel from "./container/PropertyPanel";
 
 function App() {
+  const { onDragEnd } = useComponentContext();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="w-screen h-screen flex">
+      <DndContext onDragEnd={onDragEnd}>
+        <SidePanel components={["Button", "Input", "Radio"]} />
+        <ControlPanel />
+        <PropertyPanel />
+      </DndContext>
+      {/* <ControlPanel />
+      <PropertyPanel /> */}
     </div>
   );
 }
